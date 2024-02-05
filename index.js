@@ -11,19 +11,12 @@ if (leadsFromLocalStorage) {
     render(myLeads)
 }
 
-const tabs = [
-    {url: "https://www.linkedin.com/in/per-harald-borgen/"}
-]
-
-tabBtn.addEventListener("click", function(){
-    chrome.tabs.query({active: true, currentWindow: true}, function(tabs) {
-        let activeTab = tabs[0]
-        let activeTabId = activeTab.id // or do whatever you need
+tabBtn.addEventListener("click", function(){    
+    chrome.tabs.query({active: true, currentWindow: true}, function(tabs){
+        myLeads.push(tabs[0].url)
+        localStorage.setItem("myLeads", JSON.stringify(myLeads) )
+        render(myLeads)
     })
-    
-    myLeads.push(tabs[0].url)
-    localStorage.setItem("myLeads", JSON.stringify(myLeads) )
-    render(myLeads)
 })
 
 function render(leads) {
